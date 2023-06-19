@@ -1,0 +1,10 @@
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: hello-keyvault-service
+spec:
+  backendType: azureKeyVault
+  keyVaultName: test-anoushka-extsecrets
+  data:
+    - key: test
+      name: test
