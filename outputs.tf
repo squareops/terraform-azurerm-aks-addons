@@ -1,19 +1,14 @@
-# output "environment" {
-#   description = "Environment Name for the EKS cluster"
-#   value       = var.environment
-# }
+output "environment" {
+  description = "Environment Name for the EKS cluster"
+  value       = var.environment
+}
 
-# output "nginx_ingress_controller_dns_hostname" {
-#   description = "NGINX Ingress Controller DNS Hostname"
-#   value       = data.kubernetes_service.nginx-ingress.status[0].load_balancer[0].ingress[0].hostname
-# }
+output "nginx_ingress_controller_dns_hostname" {
+  description = "NGINX Ingress Controller DNS Hostname"
+  value       = var.ingress_nginx_enabled ? data.kubernetes_service.nginx-ingress.status[0].load_balancer[0].ingress[0].ip : null
+}
 
-# output "ebs_encryption" {
-#   description = "Is AWS EBS encryption is enabled or not?"
-#   value       = "Encrypted by default"
-# }
-
-# output "efs_id" {
-#   value       = module.efs.*.efs_id
-#   description = "EFS ID"
-# }
+output "internall_nginx_ingress_controller_dns_hostname" {
+  description = "NGINX Internal Ingress Controller DNS Hostname"
+  value       = var.internal_ingress_nginx_enabled ? data.kubernetes_service.internal-nginx-ingress.status[0].load_balancer[0].ingress[0].ip : null
+}

@@ -1,12 +1,23 @@
-## Set kind to DaemonSet so no affinity is assigned to it
-
 controller:
+  kind: Deployment
   service:
     enabled: true
     annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
       service.beta.kubernetes.io/azure-load-balancer-health-probe-request-path: /healthz
     externalTrafficPolicy: Cluster
-  kind: Deployment
+    internal:
+      enabled: false
+      annotations:
+        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+        service.beta.kubernetes.io/azure-load-balancer-health-probe-request-path: /healthz
+      ingressClass: internal-nginx
+  ingressClassResource:
+    enabled: true
+    name: internal-nginx
+  ingressClass: internal-nginx
+
+
   resources:
     limits:
       cpu: 500m

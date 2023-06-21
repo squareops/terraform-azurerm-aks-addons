@@ -10,19 +10,19 @@ variable "storage_class_name" {
   type        = string
 }
 
-variable "single_az_ebs_gp3_storage_class_name" {
+variable "single_az_storage_class_name" {
   type        = string
   default     = ""
   description = "Name for the single az storage class"
 }
 
-variable "single_az_ebs_gp3_storage_class" {
+variable "single_az_storage_class" {
   type        = bool
   default     = false
   description = "Enable Single az storage class."
 }
 
-variable "availability_zone" {
+variable "zone" {
   type        = any
-  description = "List of Azs"
+  description = "List of Zones"
 }

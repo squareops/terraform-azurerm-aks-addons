@@ -52,7 +52,7 @@ resource "helm_release" "istiod" {
 
 # }
 
-resource "helm_release" "istio_ingress" {
+resource "helm_release" "istio_ingress12" {
   depends_on = [helm_release.istiod]
 
   name       = "istio-ingressgateway"
@@ -70,11 +70,6 @@ resource "helm_release" "istio_ingress" {
   set {
     name  = "labels.istio"
     value = "ingressgateway"
-  }
-
-  set {
-    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
-    value = "nlb"
   }
 
 }

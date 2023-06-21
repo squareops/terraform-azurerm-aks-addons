@@ -14,7 +14,7 @@ module "service_principal" {
 module "key_vault" {
   source = "./key-vault"
 
-  key_vault_display_name  = format("%s-%s-extsecrets", var.environment, var.name)
+  key_vault_display_name  = format("%s-%s-exsecrets", var.environment, var.name)
   resource_group_location = var.resource_group_location
   resource_group_name     = var.resource_group_name
   tenant_id               = data.azurerm_client_config.current.tenant_id

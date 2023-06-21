@@ -1,27 +1,25 @@
 # OPEN: Default label needs to be removed from gp2 storageclass in order to make gp3 as default choice for EBS volume provisioning.
-# module "single_az_sc" {
-#   for_each                             = { for sc in var.single_az_sc_config : sc.name => sc }
-#   source                               = "./addons/aws-ebs-storage-class"
-#   single_az_ebs_gp3_storage_class      = var.enable_single_az_ebs_gp3_storage_class
-#   single_az_ebs_gp3_storage_class_name = each.value.name
-#   kms_key_id                           = var.kms_key_arn
-#   availability_zone                    = each.value.zone
-# }
+module "service_monitor_crd" {
+  source = "./addons/service_monitor_crd"
+  count  = var.service_monitor_crd_enabled ? 1 : 0
+}
+
+module "single_az_sc" {
+  for_each                     = { for sc in var.single_az_sc_config : sc.name => sc }
+  source                       = "./addons/azure-disk-storage-class"
+  single_az_storage_class      = var.enable_single_az_storage_class
+  single_az_storage_class_name = each.value.name
+  zone                         = each.value.zone
+}
 
 data "azurerm_kubernetes_cluster" "aks_cluster" {
-  name = var.cluster_name
+  name                = var.cluster_name
   resource_group_name = var.resource_group_name
 }
 
-# resource "null_resource" "get_kubeconfig" {
-
-#   provisioner "local-exec" {
-#     command = "az aks get-credentials --resource-group ${var.resource_group_name} --name ${var.cluster_name} --admin --overwrite-existing"
-#   }
-# }
-
 module "ingress_nginx" {
   source                 = "./addons/ingress-nginx"
+  depends_on             = [module.service_monitor_crd]
   count                  = var.ingress_nginx_enabled ? 1 : 0
   environment            = var.environment
   name                   = var.name
@@ -29,19 +27,71 @@ module "ingress_nginx" {
   ingress_nginx_version  = var.ingress_nginx_version
 }
 
+data "kubernetes_service" "nginx-ingress" {
+  depends_on = [module.service_monitor_crd]
+  metadata {
+    name      = "ingress-nginx-controller"
+    namespace = "ingress-nginx"
+  }
+}
+
+resource "kubernetes_namespace" "internal_nginx" {
+  count = var.internal_ingress_nginx_enabled ? 1 : 0
+  metadata {
+    name = "internal-ingress-nginx"
+  }
+}
+
+resource "helm_release" "internal_nginx" {
+  depends_on = [kubernetes_namespace.internal_nginx]
+  count      = var.internal_ingress_nginx_enabled ? 1 : 0
+  name       = "internal-ingress-nginx"
+  chart      = "ingress-nginx"
+  version    = "4.7.0"
+  namespace  = "internal-ingress-nginx"
+  repository = "https://kubernetes.github.io/ingress-nginx"
+  values = [
+    templatefile("${path.module}/addons/internal_ingress_nginx/values.yaml", {
+      enable_service_monitor = var.service_monitor_crd_enabled
+    })
+  ]
+}
+
+data "kubernetes_service" "internal-nginx-ingress" {
+  depends_on = [helm_release.internal_nginx]
+  metadata {
+    name      = "internal-ingress-nginx-controller"
+    namespace = "internal-ingress-nginx"
+  }
+}
+
 module "cert_manager" {
-  source                         = "./addons/cert-manager"
-  count                          = var.cert_manager_enabled ? 1 : 0
-  environment                    = var.environment
-  name                           = var.name
-  enable_service_monitor         = var.create_service_monitor_crd
-  cert_manager_version           = var.cert_manager_version
-  cert_manager_letsencrypt_email = var.cert_manager_letsencrypt_email
+  source                 = "./addons/cert-manager"
+  depends_on             = [module.service_monitor_crd]
+  count                  = var.cert_manager_enabled ? 1 : 0
+  environment            = var.environment
+  name                   = var.name
+  enable_service_monitor = var.create_service_monitor_crd
+  cert_manager_version   = var.cert_manager_version
+}
+
+resource "helm_release" "cert_manager_le_http" {
+  depends_on = [module.cert_manager]
+  count      = var.cert_manager_install_letsencrypt_http_issuers ? 1 : 0
+  name       = "cert-manager-le-http"
+  chart      = "${path.module}/addons/cert-manager-le-http"
+  version    = "0.1.0"
+  set {
+    name  = "email"
+    value = var.cert_manager_letsencrypt_email
+    type  = "string"
+  }
 }
 
 module "external_secrets" {
-  source = "./addons/external_secrets"
-  count  = var.enable_external_secrets ? 1 : 0
+  source     = "./addons/external_secrets"
+  depends_on = [module.service_monitor_crd]
+  count      = var.enable_external_secrets ? 1 : 0
 
   environment             = var.environment
   name                    = var.name
@@ -52,38 +102,25 @@ module "external_secrets" {
 }
 
 module "istio" {
-  source = "./addons/istio"
-  count  = var.enable_istio ? 1 : 0
+  source     = "./addons/istio"
+  depends_on = [module.service_monitor_crd]
+  count      = var.enable_istio ? 1 : 0
 }
 
-# module "karpenter_provisioner" {
-#   source                               = "./addons/karpenter_provisioner"
+module "reloader" {
+  source                 = "./addons/reloader"
+  depends_on             = [module.service_monitor_crd]
+  count                  = var.enable_reloader ? 1 : 0
+  reloader_version       = var.reloader_version
+  enable_service_monitor = var.create_service_monitor_crd
+}
 
-#   count                                = var.enable_karpenter ? 1 : 0
-#   subnet_selector_name                 = var.private_subnet_name
-#   sg_selector_name                     = var.eks_cluster_name
-#   karpenter_ec2_capacity_type          = var.karpenter_ec2_capacity_type
-#   excluded_karpenter_ec2_instance_type = var.excluded_karpenter_ec2_instance_type
-# }
-
-
-# ### EFS
-# module "efs" {
-#   source             = "./addons/efs"
-#   depends_on         = [module.k8s_addons]
-#   count              = var.create_efs_storage_class ? 1 : 0
-#   environment        = var.environment
-#   vpc_id             = var.vpc_id
-#   private_subnet_ids = var.private_subnet_ids
-#   region             = data.aws_region.current.name
-#   name               = var.name
-#   kms_key_id         = var.kms_key_arn
-# }
-
-# data "kubernetes_service" "nginx-ingress" {
-#   depends_on = [module.k8s_addons]
-#   metadata {
-#     name      = "ingress-nginx-controller"
-#     namespace = "ingress-nginx"
-#   }
-# }
+module "keda" {
+  source                 = "./addons/keda"
+  depends_on             = [module.service_monitor_crd]
+  count                  = var.enable_keda ? 1 : 0
+  environment            = var.environment
+  name                   = var.name
+  enable_service_monitor = var.create_service_monitor_crd
+  keda_version           = var.keda_version
+}

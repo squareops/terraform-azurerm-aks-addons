@@ -29,19 +29,10 @@ resource "helm_release" "cert_manager" {
 
   values = [
     templatefile("${path.module}/values.yaml", {
-      enable_service_monitor         = var.enable_service_monitor,
-      cert_manager_letsencrypt_email = var.cert_manager_letsencrypt_email
-
+      enable_service_monitor = var.enable_service_monitor
     })
   ]
   lifecycle {
     create_before_destroy = true
-  }
-}
-resource "null_resource" "cluster_issuer" {
-  depends_on = [helm_release.cert_manager]
-
-  provisioner "local-exec" {
-    command = "kubectl apply -f ${path.module}/prod-issuer.yaml"
   }
 }

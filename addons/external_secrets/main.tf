@@ -21,29 +21,18 @@ resource "helm_release" "external_secrets" {
   depends_on = [module.irsa]
 
   name       = "external-secrets"
-  repository = "https://external-secrets.github.io/kubernetes-external-secrets/"
-  chart      = "kubernetes-external-secrets"
+  repository = "https://charts.external-secrets.io"
+  chart      = "external-secrets"
   namespace  = "secrets"
   timeout    = 600
-  version    = "8.5.5"
+  version    = "0.8.3"
 
   values = [
     templatefile("${path.module}/values.yaml", {
-      enable_service_monitor = var.enable_service_monitor
+      tenant_id = data.azurerm_client_config.current.tenant_id,
+      client_id = module.irsa.service_principal_application_id,
+      enable_service_monitor         = var.enable_service_monitor
+
     })
   ]
-
-  # set {
-  #   name  = "env.AWS_REGION"
-  #   value = var.region
-  # }
-
-  set {
-    name  = "serviceAccount.annotations.azure\\.workload\\.identity/client-id"
-    value = module.irsa.service_principal_application_id
-  }
-  set {
-    name  = "serviceAccount.annottaions.azure\\.workload\\.identity/tenant-id"
-    value = data.azurerm_client_config.current.tenant_id
-  }
 }
