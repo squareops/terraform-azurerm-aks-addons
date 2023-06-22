@@ -1,4 +1,13 @@
 # OPEN: Default label needs to be removed from gp2 storageclass in order to make gp3 as default choice for EBS volume provisioning.
+resource "null_resource" "get_kubeconfig" {
+
+  provisioner "local-exec" {
+    command = "az aks get-credentials --resource-group ${var.resource_group_name} --name ${var.cluster_name} --admin --overwrite-existing"
+  }
+}
+
+
+
 module "service_monitor_crd" {
   source = "./addons/service_monitor_crd"
   count  = var.service_monitor_crd_enabled ? 1 : 0
