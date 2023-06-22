@@ -2,7 +2,7 @@
 resource "null_resource" "get_kubeconfig" {
 
   provisioner "local-exec" {
-    command = "az aks get-credentials --resource-group ${var.resource_group_name} --name ${var.cluster_name} --admin --overwrite-existing"
+    command = "az aks get-credentials --resource-group ${var.resource_group_name} --name ${var.aks_cluster_name} --admin --overwrite-existing"
   }
 }
 
@@ -22,7 +22,7 @@ module "single_az_sc" {
 }
 
 data "azurerm_kubernetes_cluster" "aks_cluster" {
-  name                = var.cluster_name
+  name                = var.aks_cluster_name
   resource_group_name = var.resource_group_name
 }
 

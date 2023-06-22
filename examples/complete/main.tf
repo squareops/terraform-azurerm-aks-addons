@@ -21,7 +21,6 @@ module "eks_bootstrap" {
   enable_single_az_storage_class                = true
   create_service_monitor_crd                    = true
   enable_reloader                               = true
-  enable_metrics_server                         = true
   enable_ingress_nginx                          = true
   enable_internal_ingress_nginx                 = false
   cert_manager_enabled                          = true
