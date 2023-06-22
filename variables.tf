@@ -26,7 +26,7 @@ variable "aks_cluster_name" {
 variable "enable_keda" {
   description = "Enable KEDA Event-based autoscaler add-on"
   type        = bool
-  default     = true
+  default     = false
 }
 variable "keda_version" {
   description = "KEDA Helm release evrsion"
@@ -40,7 +40,7 @@ variable "cert_manager_version" {
 }
 variable "cert_manager_enabled" {
   description = "Enable internal loadbalancer"
-  default     = true
+  default     = false
   type        = bool
 }
 variable "cert_manager_letsencrypt_email" {
@@ -50,7 +50,7 @@ variable "cert_manager_letsencrypt_email" {
 }
 variable "create_service_monitor_crd" {
   description = "Enable Service MOnitor for metric monitoring"
-  default     = true
+  default     = false
   type        = bool
 }
 variable "ingress_nginx_version" {
@@ -58,19 +58,19 @@ variable "ingress_nginx_version" {
   default     = "4.7.0"
   type        = string
 }
-variable "ingress_nginx_enabled" {
+variable "enable_ingress_nginx" {
   description = "Enable Ingress Nginx for Internet Loadbalancer"
   default     = false
   type        = bool
 }
-variable "internal_ingress_nginx_enabled" {
+variable "enable_internal_ingress_nginx" {
   description = "Enable Ingress Nginx for Internal Loadbalancer"
-  default     = true
+  default     = false
   type        = bool
 }
 variable "enable_external_secrets" {
   description = "Enable External Secrets"
-  default     = true
+  default     = false
   type        = bool
 }
 variable "enable_istio" {
@@ -80,7 +80,7 @@ variable "enable_istio" {
 }
 variable "enable_single_az_storage_class" {
   description = "Enable Single AZ storage class."
-  default     = true
+  default     = false
   type        = bool
 }
 variable "single_az_sc_config" {
@@ -90,17 +90,17 @@ variable "single_az_sc_config" {
 }
 variable "service_monitor_crd_enabled" {
   description = "Enable or disable the installation of Custom Resource Definitions (CRDs) for Prometheus Service Monitor. "
-  default     = true
+  default     = false
   type        = bool
 }
 variable "cert_manager_install_letsencrypt_http_issuers" {
   description = "Set to true to install http issuer"
-  default     = true
+  default     = false
   type        = bool
 }
 variable "enable_reloader" {
   description = "Set true to enable reloader"
-  default     = true
+  default     = false
   type        = bool
 }
 variable "reloader_version" {

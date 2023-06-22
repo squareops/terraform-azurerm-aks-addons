@@ -29,7 +29,7 @@ data "azurerm_kubernetes_cluster" "aks_cluster" {
 module "ingress_nginx" {
   source                 = "./addons/ingress-nginx"
   depends_on             = [module.service_monitor_crd]
-  count                  = var.ingress_nginx_enabled ? 1 : 0
+  count                  = var.enable_ingress_nginx ? 1 : 0
   environment            = var.environment
   name                   = var.name
   enable_service_monitor = var.create_service_monitor_crd
@@ -45,7 +45,7 @@ data "kubernetes_service" "nginx-ingress" {
 }
 
 resource "kubernetes_namespace" "internal_nginx" {
-  count = var.internal_ingress_nginx_enabled ? 1 : 0
+  count = var.enable_internal_ingress_nginx ? 1 : 0
   metadata {
     name = "internal-ingress-nginx"
   }
@@ -53,7 +53,7 @@ resource "kubernetes_namespace" "internal_nginx" {
 
 resource "helm_release" "internal_nginx" {
   depends_on = [kubernetes_namespace.internal_nginx]
-  count      = var.internal_ingress_nginx_enabled ? 1 : 0
+  count      = var.enable_internal_ingress_nginx ? 1 : 0
   name       = "internal-ingress-nginx"
   chart      = "ingress-nginx"
   version    = "4.7.0"

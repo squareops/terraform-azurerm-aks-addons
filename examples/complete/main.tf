@@ -23,6 +23,7 @@ module "eks_bootstrap" {
   enable_reloader                               = true
   enable_metrics_server                         = true
   enable_ingress_nginx                          = true
+  enable_internal_ingress_nginx                 = false
   cert_manager_enabled                          = true
   cert_manager_install_letsencrypt_http_issuers = true
   enable_external_secrets                       = true
