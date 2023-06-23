@@ -20,8 +20,8 @@ variable "name" {
 }
 variable "aks_cluster_name" {
   description = "Fetch Cluster ID of the cluster"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 variable "enable_keda" {
   description = "Enable KEDA Event-based autoscaler add-on"

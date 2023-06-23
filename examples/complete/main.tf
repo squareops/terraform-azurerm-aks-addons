@@ -19,7 +19,7 @@ module "eks_bootstrap" {
   single_az_sc_config                           = [{ name = "infra-service-sc", zone = "us-east-2a" }]
   cert_manager_letsencrypt_email                = "email@example.com"
   enable_single_az_storage_class                = true
-  create_service_monitor_crd                    = true
+  service_monitor_crd_enabled                   = true
   enable_reloader                               = true
   enable_ingress_nginx                          = true
   enable_internal_ingress_nginx                 = false
