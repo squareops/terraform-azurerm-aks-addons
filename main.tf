@@ -30,7 +30,7 @@ module "ingress_nginx" {
   count                  = var.enable_ingress_nginx ? 1 : 0
   environment            = var.environment
   name                   = var.name
-  enable_service_monitor = var.create_service_monitor_crd
+  enable_service_monitor = var.service_monitor_crd_enabled
   ingress_nginx_version  = var.ingress_nginx_version
 }
 
@@ -79,7 +79,7 @@ module "cert_manager" {
   count                  = var.cert_manager_enabled ? 1 : 0
   environment            = var.environment
   name                   = var.name
-  enable_service_monitor = var.create_service_monitor_crd
+  enable_service_monitor = var.service_monitor_crd_enabled
   cert_manager_version   = var.cert_manager_version
 }
 
@@ -105,7 +105,7 @@ module "external_secrets" {
   name                    = var.name
   resource_group_location = var.resource_group_location
   resource_group_name     = var.resource_group_name
-  enable_service_monitor  = var.create_service_monitor_crd
+  enable_service_monitor  = var.service_monitor_crd_enabled
   cluster_issuer_url      = data.azurerm_kubernetes_cluster.aks_cluster.oidc_issuer_url
 }
 
@@ -120,7 +120,7 @@ module "reloader" {
   depends_on             = [module.service_monitor_crd, null_resource.get_kubeconfig]
   count                  = var.enable_reloader ? 1 : 0
   reloader_version       = var.reloader_version
-  enable_service_monitor = var.create_service_monitor_crd
+  enable_service_monitor = var.service_monitor_crd_enabled
 }
 
 module "keda" {
@@ -129,6 +129,6 @@ module "keda" {
   count                  = var.enable_keda ? 1 : 0
   environment            = var.environment
   name                   = var.name
-  enable_service_monitor = var.create_service_monitor_crd
+  enable_service_monitor = var.service_monitor_crd_enabled
   keda_version           = var.keda_version
 }
