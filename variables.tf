@@ -48,11 +48,6 @@ variable "cert_manager_letsencrypt_email" {
   default     = "anoushka@squareops.com"
   type        = string
 }
-variable "create_service_monitor_crd" {
-  description = "Enable Service MOnitor for metric monitoring"
-  default     = false
-  type        = bool
-}
 variable "ingress_nginx_version" {
   description = "Specify the version of the nginx ingress"
   default     = "4.7.0"
