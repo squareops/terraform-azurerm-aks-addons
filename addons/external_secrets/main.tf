@@ -29,9 +29,9 @@ resource "helm_release" "external_secrets" {
 
   values = [
     templatefile("${path.module}/values.yaml", {
-      tenant_id = data.azurerm_client_config.current.tenant_id,
-      client_id = module.irsa.service_principal_application_id,
-      enable_service_monitor         = var.enable_service_monitor
+      tenant_id              = data.azurerm_client_config.current.tenant_id,
+      client_id              = module.irsa.service_principal_application_id,
+      enable_service_monitor = var.enable_service_monitor
 
     })
   ]
