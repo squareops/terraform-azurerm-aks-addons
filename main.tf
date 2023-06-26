@@ -13,7 +13,7 @@ module "service_monitor_crd" {
 module "single_az_sc" {
   for_each                     = { for sc in var.single_az_sc_config : sc.name => sc }
   source                       = "./addons/azure-disk-storage-class"
-  depends_on                   = [module.service_monitor_crd, null_resource, get_kubeconfig]
+  depends_on                   = [module.service_monitor_crd, null_resource.get_kubeconfig]
   single_az_storage_class      = var.enable_single_az_storage_class
   single_az_storage_class_name = each.value.name
   zone                         = each.value.zone
@@ -26,7 +26,7 @@ data "azurerm_kubernetes_cluster" "aks_cluster" {
 
 module "ingress_nginx" {
   source                 = "./addons/ingress-nginx"
-  depends_on             = [module.service_monitor_crd, null_resource, get_kubeconfig]
+  depends_on             = [module.service_monitor_crd, null_resource.get_kubeconfig]
   count                  = var.enable_ingress_nginx ? 1 : 0
   environment            = var.environment
   name                   = var.name
@@ -35,7 +35,7 @@ module "ingress_nginx" {
 }
 
 data "kubernetes_service" "nginx-ingress" {
-  depends_on = [module.service_monitor_crd, null_resource, get_kubeconfig]
+  depends_on = [module.service_monitor_crd, null_resource.get_kubeconfig]
   metadata {
     name      = "ingress-nginx-controller"
     namespace = "ingress-nginx"
@@ -44,14 +44,14 @@ data "kubernetes_service" "nginx-ingress" {
 
 resource "kubernetes_namespace" "internal_nginx" {
   count      = var.enable_internal_ingress_nginx ? 1 : 0
-  depends_on = [module.service_monitor_crd, null_resource, get_kubeconfig]
+  depends_on = [module.service_monitor_crd, null_resource.get_kubeconfig]
   metadata {
     name = "internal-ingress-nginx"
   }
 }
 
 resource "helm_release" "internal_nginx" {
-  depends_on = [module.service_monitor_crd, null_resource, get_kubeconfig]
+  depends_on = [module.service_monitor_crd, null_resource.get_kubeconfig]
   count      = var.enable_internal_ingress_nginx ? 1 : 0
   name       = "internal-ingress-nginx"
   chart      = "ingress-nginx"
@@ -66,7 +66,7 @@ resource "helm_release" "internal_nginx" {
 }
 
 data "kubernetes_service" "internal-nginx-ingress" {
-  depends_on = [module.service_monitor_crd, null_resource, get_kubeconfig]
+  depends_on = [module.service_monitor_crd, null_resource.get_kubeconfig]
   metadata {
     name      = "internal-ingress-nginx-controller"
     namespace = "internal-ingress-nginx"
@@ -75,7 +75,7 @@ data "kubernetes_service" "internal-nginx-ingress" {
 
 module "cert_manager" {
   source                 = "./addons/cert-manager"
-  depends_on             = [module.service_monitor_crd, null_resource, get_kubeconfig]
+  depends_on             = [module.service_monitor_crd, null_resource.get_kubeconfig]
   count                  = var.cert_manager_enabled ? 1 : 0
   environment            = var.environment
   name                   = var.name
@@ -84,7 +84,7 @@ module "cert_manager" {
 }
 
 resource "helm_release" "cert_manager_le_http" {
-  depends_on = [module.service_monitor_crd, null_resource, get_kubeconfig]
+  depends_on = [module.service_monitor_crd, null_resource.get_kubeconfig]
   count      = var.cert_manager_install_letsencrypt_http_issuers ? 1 : 0
   name       = "cert-manager-le-http"
   chart      = "${path.module}/addons/cert-manager-le-http"
@@ -98,7 +98,7 @@ resource "helm_release" "cert_manager_le_http" {
 
 module "external_secrets" {
   source     = "./addons/external_secrets"
-  depends_on = [module.service_monitor_crd, null_resource, get_kubeconfig]
+  depends_on = [module.service_monitor_crd, null_resource.get_kubeconfig]
   count      = var.enable_external_secrets ? 1 : 0
 
   environment             = var.environment
@@ -111,13 +111,13 @@ module "external_secrets" {
 
 module "istio" {
   source     = "./addons/istio"
-  depends_on = [module.service_monitor_crd, null_resource, get_kubeconfig]
+  depends_on = [module.service_monitor_crd, null_resource.get_kubeconfig]
   count      = var.enable_istio ? 1 : 0
 }
 
 module "reloader" {
   source                 = "./addons/reloader"
-  depends_on             = [module.service_monitor_crd, null_resource, get_kubeconfig]
+  depends_on             = [module.service_monitor_crd, null_resource.get_kubeconfig]
   count                  = var.enable_reloader ? 1 : 0
   reloader_version       = var.reloader_version
   enable_service_monitor = var.create_service_monitor_crd
@@ -125,7 +125,7 @@ module "reloader" {
 
 module "keda" {
   source                 = "./addons/keda"
-  depends_on             = [module.service_monitor_crd, null_resource, get_kubeconfig]
+  depends_on             = [module.service_monitor_crd, null_resource.get_kubeconfig]
   count                  = var.enable_keda ? 1 : 0
   environment            = var.environment
   name                   = var.name
