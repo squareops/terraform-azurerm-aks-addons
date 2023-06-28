@@ -84,7 +84,7 @@ module "cert_manager" {
 }
 
 resource "helm_release" "cert_manager_le_http" {
-  depends_on = [module.service_monitor_crd, null_resource.get_kubeconfig]
+  depends_on = [module.cert_manager]
   count      = var.cert_manager_install_letsencrypt_http_issuers ? 1 : 0
   name       = "cert-manager-le-http"
   chart      = "${path.module}/addons/cert-manager-le-http"
