@@ -10,7 +10,7 @@ locals {
 }
 
 module "eks_bootstrap" {
-  source                                        = "git::https://github.com/anoushkaakhourysq/terraform-azure-aks-bootstrap.git?ref=release/v1"
+  source                                        = "git::https://github.com/sq-ia/terraform-azure-aks-bootstrap.git?ref=release/v1"
   environment                                   = ""
   name                                          = ""
   aks_cluster_name                              = ""
