@@ -1,5 +1,5 @@
 locals {
-  region      = "us-east-2"
+  region      = "eastus"
   environment = "production"
   name        = "skaf"
   additional_tags = {
@@ -9,7 +9,7 @@ locals {
   }
 }
 
-module "eks_bootstrap" {
+module "aks_bootstrap" {
   source                                        = "git::https://github.com/sq-ia/terraform-azure-aks-bootstrap.git?ref=release/v1"
   environment                                   = ""
   name                                          = ""
