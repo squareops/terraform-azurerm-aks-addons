@@ -63,7 +63,7 @@ variable "enable_internal_ingress_nginx" {
   default     = false
   type        = bool
 }
-variable "enable_single_az_storage_class" {
+variable "single_az_storage_class_enabled" {
   description = "Enable Single AZ storage class."
   default     = false
   type        = bool

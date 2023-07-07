@@ -14,7 +14,7 @@ module "single_az_sc" {
   for_each                     = { for sc in var.single_az_sc_config : sc.name => sc }
   source                       = "./addons/azure-disk-storage-class"
   depends_on                   = [module.service_monitor_crd, null_resource.get_kubeconfig]
-  single_az_storage_class      = var.enable_single_az_storage_class
+  single_az_storage_class      = var.single_az_storage_class_enabled
   single_az_storage_class_name = each.value.name
   zone                         = each.value.zone
 }
