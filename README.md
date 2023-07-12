@@ -101,7 +101,7 @@ module "aks_addons" {
 
 | Name | Description |
 |------|-------------|
-| <a name="output_environment"></a> [environment](#output\_environment) | Environment Name for the EKS cluster |
+| <a name="output_environment"></a> [environment](#output\_environment) | Environment Name for the AKS cluster |
 | <a name="output_internall_nginx_ingress_controller_dns_hostname"></a> [internall\_nginx\_ingress\_controller\_dns\_hostname](#output\_internall\_nginx\_ingress\_controller\_dns\_hostname) | NGINX Internal Ingress Controller DNS Hostname |
 | <a name="output_nginx_ingress_controller_dns_hostname"></a> [nginx\_ingress\_controller\_dns\_hostname](#output\_nginx\_ingress\_controller\_dns\_hostname) | NGINX Ingress Controller DNS Hostname |
 

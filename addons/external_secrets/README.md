@@ -36,7 +36,7 @@
 | <a name="input_cluster_id"></a> [cluster\_id](#input\_cluster\_id) | Fetch ID of the cluster | `string` | `""` | no |
 | <a name="input_cluster_issuer_url"></a> [cluster\_issuer\_url](#input\_cluster\_issuer\_url) | n/a | `string` | `""` | no |
 | <a name="input_enable_service_monitor"></a> [enable\_service\_monitor](#input\_enable\_service\_monitor) | (optional) describe your variable | `bool` | `false` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | Environment identifier for the EKS cluster | `string` | `""` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | Environment identifier for the AKS cluster | `string` | `""` | no |
 | <a name="input_name"></a> [name](#input\_name) | Specify the name of the resource | `string` | `""` | no |
 | <a name="input_provider_url"></a> [provider\_url](#input\_provider\_url) | n/a | `string` | `""` | no |
 | <a name="input_resource_group_location"></a> [resource\_group\_location](#input\_resource\_group\_location) | AZURE location for the AKS cluster | `string` | `""` | no |

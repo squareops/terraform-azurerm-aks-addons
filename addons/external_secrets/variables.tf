@@ -7,7 +7,7 @@ variable "cluster_id" {
 variable "environment" {
   default     = ""
   type        = string
-  description = "Environment identifier for the EKS cluster"
+  description = "Environment identifier for the AKS cluster"
 }
 
 variable "name" {
