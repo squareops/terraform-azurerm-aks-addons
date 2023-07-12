@@ -9,8 +9,8 @@ locals {
   }
 }
 
-module "aks_bootstrap" {
-  source                                        = "git::https://github.com/sq-ia/terraform-azure-aks-bootstrap.git?ref=release/v1"
+module "aks_addons" {
+  source                                        = "git::https://github.com/sq-ia/terraform-azure-aks-addons.git?ref=release/v1"
   environment                                   = ""
   name                                          = ""
   aks_cluster_name                              = ""
