@@ -3,12 +3,12 @@ variable "enable_service_monitor" {
   type    = bool
 }
 variable "environment" {
-  description = "Environment identifier for the EKS cluster"
+  description = "Environment identifier for the AKS cluster"
   default     = ""
   type        = string
 }
 variable "name" {
-  description = "Specify the name prefix of the EKS cluster resources."
+  description = "Specify the name prefix of the AKS cluster resources."
   default     = ""
   type        = string
 }

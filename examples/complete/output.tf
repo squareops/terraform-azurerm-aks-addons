@@ -1,19 +1,15 @@
 output "environment" {
-  description = "Environment Name for the EKS cluster"
+  description = "Environment Name for the AKS cluster"
   value       = local.environment
 }
 
 output "nginx_ingress_controller_dns_hostname" {
   description = "NGINX Ingress Controller DNS Hostname"
-  value       = module.eks_bootstrap.nginx_ingress_controller_dns_hostname
+  value       = module.aks_addons.nginx_ingress_controller_dns_hostname
 }
 
-output "ebs_encryption" {
-  description = "Is AWS EBS encryption is enabled or not?"
-  value       = "Encrypted by default"
+output "internal_nginx_ingress_controller_dns_hostname" {
+  description = "NGINX Internal Ingress Controller DNS Hostname"
+  value       = module.aks_addons.internal_nginx_ingress_controller_dns_hostname
 }
 
-output "efs_id" {
-  value       = module.eks_bootstrap.efs_id
-  description = "EFS ID"
-}

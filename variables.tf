@@ -48,7 +48,7 @@ variable "cert_manager_install_letsencrypt_http_issuers" {
   default     = false
   type        = bool
 }
-variable "enable_ingress_nginx" {
+variable "ingress_nginx_enabled" {
   description = "Enable Ingress Nginx for Internet Loadbalancer"
   default     = false
   type        = bool
@@ -58,12 +58,12 @@ variable "ingress_nginx_version" {
   default     = "4.7.0"
   type        = string
 }
-variable "enable_internal_ingress_nginx" {
+variable "internal_ingress_nginx_enabled" {
   description = "Enable Ingress Nginx for Internal Loadbalancer"
   default     = false
   type        = bool
 }
-variable "enable_single_az_storage_class" {
+variable "single_az_storage_class_enabled" {
   description = "Enable Single AZ storage class."
   default     = false
   type        = bool
@@ -73,7 +73,7 @@ variable "single_az_sc_config" {
   default     = []
   type        = list(any)
 }
-variable "enable_keda" {
+variable "keda_enabled" {
   description = "Enable KEDA Event-based autoscaler add-on"
   type        = bool
   default     = false
@@ -83,17 +83,17 @@ variable "keda_version" {
   default     = "2.10.2"
   type        = string
 }
-variable "enable_external_secrets" {
+variable "external_secrets_enabled" {
   description = "Enable External Secrets"
   default     = false
   type        = bool
 }
-variable "enable_istio" {
+variable "istio_enabled" {
   description = "Enable istio for service mesh."
   default     = false
   type        = bool
 }
-variable "enable_reloader" {
+variable "reloader_enabled" {
   description = "Set true to enable reloader"
   default     = false
   type        = bool

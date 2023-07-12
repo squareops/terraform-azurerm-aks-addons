@@ -1,22 +1,13 @@
-plugin "aws" {
-    enabled = true
-    version = "0.21.0"
-    source  = "github.com/terraform-linters/tflint-ruleset-aws"
-}
-
-config {
 #Enables module inspection
-module = false
-force = false
+config {
+  module = false
+  force = false
 }
 
-# Required that all AWS resources have specified tags.
-rule "aws_resource_missing_tags" {
+plugin "azurerm" {
   enabled = true
-  tags = [
-    "Name",
-    "Environment",
-  ]
+  version = "0.21.0"
+  source  = "github.com/terraform-linters/tflint-ruleset-azurerm"
 }
 
 # Disallow deprecated (0.11-style) interpolation
@@ -92,9 +83,9 @@ format = "none"
 }
 
 # Disallow terraform declarations without require_version.
-# rule "terraform_required_version" {
-# enabled = true
-# }
+rule "terraform_required_version" {
+enabled = true
+}
 
 # Require that all providers have version constraints through required_providers.
 rule "terraform_required_providers" {
