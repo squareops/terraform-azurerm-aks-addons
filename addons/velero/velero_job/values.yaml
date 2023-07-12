@@ -1,3 +1,0 @@
-velero_backup_name: cluster_backup
-schedule_cron_time: "*/10 * * * *"
-namespaces: "*"

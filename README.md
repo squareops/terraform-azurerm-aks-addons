@@ -1,4 +1,4 @@
-# AKS Bootstrap
+# AKS Add Ons
 ![squareops_avatar]
 
 [squareops_avatar]: https://squareops.com/wp-content/uploads/2022/12/squareops-logo.png
@@ -9,7 +9,7 @@ Terraform module to create AKS cluster resources for workload deployment on Azur
 
 ## Usage Example
 ```hcl
-module "aks_bootstrap" {
+module "aks_addons" {
   source                                        = "path-to-source"
   environment                                   = "dev"
   name                                          = "aks-boostrap"
@@ -111,10 +111,9 @@ module "aks_bootstrap" {
 
 To report an issue with a project:
 
-  1. Check the repository's [issue tracker](https://github.com/sq-ia/terraform-aws-eks-bootstrap/issues) on GitHub
-  2. Search to see if the issue has already been reported
-  3. If you can't find an answer to your question in the documentation or issue tracker, you can ask a question by creating a new issue. Be sure to provide enough context and details so others can understand your problem.
-  4. Contributing to the project can be a great way to get involved and get help. The maintainers and other contributors may be more likely to help you if you're already making contributions to the project.
+  1. Search to see if the issue has already been reported
+  2. If you can't find an answer to your question in the documentation or issue tracker, you can ask a question by creating a new issue. Be sure to provide enough context and details so others can understand your problem.
+  3. Contributing to the project can be a great way to get involved and get help. The maintainers and other contributors may be more likely to help you if you're already making contributions to the project.
 
 
 ## License
@@ -125,11 +124,9 @@ Apache License, Version 2.0, January 2004 (http://www.apache.org/licenses/).
 
 To support a GitHub project by liking it, you can follow these steps:
 
-  1. Visit the repository: Navigate to the [GitHub repository](https://github.com/sq-ia/terraform-aws-eks-bootstrap).
+  1. Click the "Star" button On the repository page, you'll see a "Star" button in the upper right corner. Clicking on it will star the repository, indicating your support for the project.
 
-  2. Click the "Star" button On the repository page, you'll see a "Star" button in the upper right corner. Clicking on it will star the repository, indicating your support for the project.
-
-  3. Optionally, you can also leave a comment on the repository or open an issue to give feedback or suggest changes.
+  2. Optionally, you can also leave a comment on the repository or open an issue to give feedback or suggest changes.
 
 Starring a repository on GitHub is a simple way to show your support and appreciation for the project. It also helps to increase the visibility of the project and make it more discoverable to others.
 
