@@ -10,7 +10,7 @@ locals {
 }
 
 module "aks_addons" {
-  source                                        = "squareops/vnet/azurerm"
+  source                                        = "squareops/aks-addons/azurerm"
   environment                                   = ""
   name                                          = ""
   aks_cluster_name                              = ""

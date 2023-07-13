@@ -10,9 +10,9 @@ Terraform module to create AKS cluster resources for workload deployment on Azur
 ## Usage Example
 ```hcl
 module "aks_addons" {
-  source                                        = "squareops/vnet/azurerm"
+  source                                        = "squareops/aks-addons/azurerm"
   environment                                   = "dev"
-  name                                          = "aks-boostrap"
+  name                                          = "aks-addons"
   aks_cluster_name                              = "aks-dev"
   resource_group_name                           = "aks-resource-group"
   resource_group_location                       = "eastus"
