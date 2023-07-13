@@ -7,7 +7,7 @@ operator:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: "Infra-Services"
+          - key: "Addons-Services"
             operator: In
             values:
             - "true"
@@ -19,7 +19,7 @@ metricsServer:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: "Infra-Services"
+          - key: "Addons-Services"
             operator: In
             values:
             - "true"
@@ -31,7 +31,7 @@ webhooks:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: "Infra-Services"
+          - key: "Addons-Services"
             operator: In
             values:
             - "true"
@@ -73,7 +73,7 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: "Infra-Services"
+        - key: "Addons-Services"
           operator: In
           values:
           - "true"
@@ -90,11 +90,6 @@ prometheus:
   operator:
     enabled: ${enable_service_monitor}
     port: 8080
-    serviceMonitor:
-      enabled: ${enable_service_monitor}
-      interval: "30s"
-      scrapeTimeout: "60s"
-    enabled: ${enable_service_monitor}
     serviceMonitor:
       enabled: ${enable_service_monitor}
       interval: "30s"
