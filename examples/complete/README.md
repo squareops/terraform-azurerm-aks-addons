@@ -1,37 +1,6 @@
-# AKS Add Ons
-![squareops_avatar]
+# complete
 
-[squareops_avatar]: https://squareops.com/wp-content/uploads/2022/12/squareops-logo.png
-
-### [SquareOps Technologies](https://squareops.com/) Your DevOps Partner for Accelerating cloud journey.
-<br>
-Terraform module to create AKS cluster resources for workload deployment on Azure Cloud.
-
-## Usage Example
-```hcl
-module "aks_addons" {
-  source                                        = "squareops/aks-addons/azurerm"
-  environment                                   = "dev"
-  name                                          = "aks-addons"
-  aks_cluster_name                              = "aks-dev"
-  resource_group_name                           = "aks-resource-group"
-  resource_group_location                       = "eastus"
-  single_az_sc_config                           = [{ name = "infra-service-sc", zone = "us-east-2a" }]
-  cert_manager_letsencrypt_email                = "email@example.com"
-  single_az_storage_class_enabled               = true
-  service_monitor_crd_enabled                   = true
-  reloader_enabled                              = true
-  ingress_nginx_enabled                         = true
-  internal_ingress_nginx_enabled                = false
-  cert_manager_enabled                          = true
-  cert_manager_install_letsencrypt_http_issuers = true
-  external_secrets_enabled                      = true
-  keda_enabled                                  = true
-  istio_enabled                                 = false
-}
-```
-Refer [examples](https://github.com/squareops/terraform-azure-addons/tree/main/examples/complete) for more details.
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -104,47 +73,7 @@ Refer [examples](https://github.com/squareops/terraform-azure-addons/tree/main/e
 | Name | Description |
 |------|-------------|
 | <a name="output_environment"></a> [environment](#output\_environment) | Environment Name for the AKS cluster |
-| <a name="output_internall_nginx_ingress_controller_dns_hostname"></a> [internall\_nginx\_ingress\_controller\_dns\_hostname](#output\_internall\_nginx\_ingress\_controller\_dns\_hostname) | NGINX Internal Ingress Controller DNS Hostname |
+| <a name="output_internal_nginx_ingress_controller_dns_hostname"></a> [internal\_nginx\_ingress\_controller\_dns\_hostname](#output\_internal\_nginx\_ingress\_controller\_dns\_hostname) | NGINX Internal Ingress Controller DNS Hostname |
 | <a name="output_nginx_ingress_controller_dns_hostname"></a> [nginx\_ingress\_controller\_dns\_hostname](#output\_nginx\_ingress\_controller\_dns\_hostname) | NGINX Ingress Controller DNS Hostname |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
-## Contribution & Issue Reporting
-
-To report an issue with a project:
-
-  1. Search to see if the issue has already been reported
-  2. If you can't find an answer to your question in the documentation or issue tracker, you can ask a question by creating a new issue. Be sure to provide enough context and details so others can understand your problem.
-  3. Contributing to the project can be a great way to get involved and get help. The maintainers and other contributors may be more likely to help you if you're already making contributions to the project.
-
-
-## License
-
-Apache License, Version 2.0, January 2004 (http://www.apache.org/licenses/).
-
-## Support Us
-
-To support a GitHub project by liking it, you can follow these steps:
-
-  1. Click the "Star" button On the repository page, you'll see a "Star" button in the upper right corner. Clicking on it will star the repository, indicating your support for the project.
-
-  2. Optionally, you can also leave a comment on the repository or open an issue to give feedback or suggest changes.
-
-Starring a repository on GitHub is a simple way to show your support and appreciation for the project. It also helps to increase the visibility of the project and make it more discoverable to others.
-
-## Who we are
-
-We believe that the key to success in the digital age is the ability to deliver value quickly and reliably. That’s why we offer a comprehensive range of DevOps & Cloud services designed to help your organization optimize its systems & Processes for speed and agility.
-
-  1. We are an AWS Advanced consulting partner which reflects our deep expertise in AWS Cloud and helping 100+ clients over the last 5 years.
-  2. Expertise in Kubernetes and overall container solution helps companies expedite their journey by 10X.
-  3. Infrastructure Automation is a key component to the success of our Clients and our Expertise helps deliver the same in the shortest time.
-  4. DevSecOps as a service to implement security within the overall DevOps process and helping companies deploy securely and at speed.
-  5. Platform engineering which supports scalable,Cost efficient infrastructure that supports rapid development, testing, and deployment.
-  6. 24*7 SRE service to help you Monitor the state of your infrastructure and eradicate any issue within the SLA.
-
-We provide [support](https://squareops.com/contact-us/) on all of our projects, no matter how small or large they may be.
-
-You can find more information about our company on this [squareops.com](https://squareops.com/), follow us on [Linkedin](https://www.linkedin.com/company/squareops-technologies-pvt-ltd/), or fill out a [job application](https://squareops.com/careers/). If you have any questions or would like assistance with your cloud strategy and implementation, please don't hesitate to [contact us](https://squareops.com/contact-us/).
-
-<!-- END OF PRE-COMMIT-PIKE DOCS HOOK -->
