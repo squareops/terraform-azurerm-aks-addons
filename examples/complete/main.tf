@@ -16,7 +16,7 @@ module "aks_addons" {
   aks_cluster_name                              = ""
   resource_group_name                           = ""
   resource_group_location                       = ""
-  single_az_sc_config                           = [{ name = "infra-service-sc", zone = "us-east-2a" }]
+  single_az_sc_config                           = [{ name = "infra-service-sc", zone = "1" }]
   cert_manager_letsencrypt_email                = "email@example.com"
   single_az_storage_class_enabled               = true
   service_monitor_crd_enabled                   = true
