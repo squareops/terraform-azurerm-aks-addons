@@ -30,6 +30,8 @@ module "aks_addons" {
   istio_enabled                                 = false
 }
 ```
+Refer [examples](https://github.com/squareops/terraform-azure-addons/tree/main/examples/complete) for more details.
+
 ## Requirements
 
 | Name | Version |
