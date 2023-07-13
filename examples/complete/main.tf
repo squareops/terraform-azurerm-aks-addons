@@ -10,7 +10,7 @@ locals {
 }
 
 module "aks_addons" {
-  source                                        = "git::https://github.com/squareops/terraform-azure-aks-addons.git?ref=release/v1"
+  source                                        = "squareops/vnet/azurerm"
   environment                                   = ""
   name                                          = ""
   aks_cluster_name                              = ""
