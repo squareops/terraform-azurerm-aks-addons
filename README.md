@@ -5,7 +5,7 @@
 
 ### [SquareOps Technologies](https://squareops.com/) Your DevOps Partner for Accelerating cloud journey.
 <br>
-Terraform module to create AKS cluster resources for workload deployment on Azure Cloud.
+This module provides a set of reusable, configurable, and scalable Azure AKS addons configurations. It enables users to easily deploy and manage a highly available AKS cluster using infrastructure as code. This module supports a wide range of features service monitors, Istio service meshes, Ingress nginx controller, Cert-Manager with Let's Encrypt, Reloader, and External Secrets. Users can configure these features using a set of customizable variables that allow for fine-grained control over the deployment. Additionally, this module is regularly updated to keep pace with the latest changes in the AKS ecosystem, ensuring that users always have access to the most up-to-date features and functionality.
 
 ## Usage Example
 ```hcl
